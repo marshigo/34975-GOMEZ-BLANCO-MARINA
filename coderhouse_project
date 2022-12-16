@@ -1,0 +1,89 @@
+CREATE SCHEMA coderhouse_project;
+USE coderhouse_project;
+CREATE TABLE client (
+client_id INT NOT NULL auto_increment,
+first_name varchar(60) NOT NULL,
+last_name varchar(60) NOT NULL,
+adress varchar(100) NOT NULL,
+phone INT NOT NULL,
+country_id INT NOT NULL,
+zip_code INT NOT NULL,
+user_id INT NOT NULL,
+PRIMARY KEY (client_id)
+);
+CREATE TABLE country (
+country_id INT NOT NULL,
+country_description varchar(60) NOT NULL,
+PRIMARY KEY (country_id)
+);
+CREATE TABLE booking (
+booking_id INT NOT NULL auto_increment,
+client_id INT NOT NULL,
+checkin_date DATE NOT NULL,
+checkout_date DATE NOT NULL,
+price FLOAT NOT NULL,
+people_amount INT NOT NULL,
+status_id INT NOT NULL,
+department_id INT NOT NULL,
+PRIMARY KEY (booking_id)
+);
+CREATE TABLE apart (
+apart_id INT NOT NULL auto_increment,
+apart_description varchar(60) NOT NULL,
+category varchar(60) NOT NULL,
+adress varchar(100) NOT NULL,
+zip_code INT NOT NULL,
+country_id INT NOT NULL,
+PRIMARY KEY (apart_id)
+);
+CREATE TABLE user (
+user_id INT NOT NULL auto_increment,
+client_id INT NOT NULL,
+user_name varchar(60) NOT NULL,
+user_email varchar(255) NOT NULL,
+user_password varchar(60) NOT NULL,
+birthdate date NOT NULL,
+PRIMARY KEY (user_id)
+);
+CREATE TABLE department_type (
+department_id INT NOT NULL auto_increment,
+department_description varchar(60) NOT NULL,
+capacity INT NOT NULL,
+total_price FLOAT NOT NULL,
+apart_id INT NOT NULL,
+PRIMARY KEY (department_id)
+);
+CREATE TABLE pay (
+pay_id INT NOT NULL auto_increment,
+pay_info varchar(60) NOT NULL,
+pay_date DATE NOT NULL,
+total_pay FLOAT NOT NULL,
+client_id INT NOT NULL,
+PRIMARY KEY (pay_id)
+);
+CREATE TABLE status (
+status_id INT NOT NULL auto_increment,
+status_description varchar(60) NOT NULL,
+client_id INT NOT NULL,
+booking_id INT NOT NULL,
+PRIMARY KEY (status_id)
+);
+
+ALTER TABLE booking
+ADD FOREIGN KEY (client_id) REFERENCES client(client_id),
+ADD FOREIGN KEY (status_id) REFERENCES status(status_id),
+ADD FOREIGN KEY (department_id) REFERENCES department_type(department_id);
+ALTER TABLE apart
+ADD FOREIGN KEY (country_id) REFERENCES country(country_id);
+ALTER TABLE department_type
+ADD FOREIGN KEY (apart_id) REFERENCES apart(apart_id);
+ALTER TABLE pay
+ADD FOREIGN KEY (client_id) REFERENCES client(client_id);
+ALTER TABLE status
+ADD FOREIGN KEY (client_id) REFERENCES client(client_id),
+ADD FOREIGN KEY (booking_id) REFERENCES booking(booking_id);
+ALTER TABLE client
+ADD FOREIGN KEY (user_id) REFERENCES user(user_id),
+ADD FOREIGN KEY (country_id) REFERENCES country(country_id);
+ALTER TABLE user
+ADD FOREIGN KEY (client_id) REFERENCES client(client_id);
