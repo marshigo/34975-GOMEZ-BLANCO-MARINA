@@ -1,0 +1,34 @@
+
+CREATE view Usuarios AS 
+(SELECT cliente_id,nombre_usario,fecha_nacimiento
+FROM usuario);
+
+SELECT * FROM coderhouse_project.usuario;
+
+CREATE view ReservasGrandes AS 
+(SELECT reserva_id,cantidad_personas
+FROM reserva
+ORDER BY cantidad_personas);
+
+SELECT * FROM coderhouse_project.reserva;
+
+CREATE view DepartamentosCalihue AS 
+(SELECT departamento_id,departamento_descripcion,apart_id
+FROM departamento
+WHERE apart_id LIKE '%1%');
+
+SELECT * FROM coderhouse_project.departamento;
+
+CREATE view ReservasActivas AS 
+(SELECT reserva_id,estado_id
+FROM reserva
+WHERE estado_id LIKE '%1%');
+
+SELECT * FROM coderhouse_project.reserva
+
+CREATE view Clientes AS 
+(SELECT cliente_id,nombre,apellido
+FROM cliente
+ORDER BY cliente_id);
+
+SELECT * FROM coderhouse_project.cliente;
