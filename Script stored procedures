@@ -1,0 +1,20 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cambia_estado2`(IN fecha datetime)
+BEGIN
+DECLARE estado_id INT;
+IF fecha_checkout <= '2023-01-11' THEN
+SELECT estado_id FROM reserva;
+SET estado_id =2;
+else
+SET estado_id = estado_id;
+END IF;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reservas_activas`(OUT total INTEGER)
+BEGIN
+
+IF estado_id = 1 THEN
+SELECT COUNT(*) INTO total FROM reserva 
+	WHERE estado_id = 1;
+END IF;
+
+END
