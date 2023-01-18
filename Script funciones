@@ -1,0 +1,37 @@
+CREATE FUNCTION cantidad_reserva (valor1 datetime, valor2 datetime)
+
+RETURNS INT
+
+NOT DETERMINISTIC
+
+BEGIN
+
+DECLARE cantidad int;
+
+SET cantidad = (SELECT count(reserva_id) FROM reserva WHERE datetime >= valor1 AND datetime < valor2);
+
+RETURN cantidad;
+
+END;
+
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `calculo_total`(
+
+	 valor1 FLOAT,
+
+   valor2 FLOAT
+
+) RETURNS int
+
+  DETERMINISTIC
+
+BEGIN
+
+	DECLARE calculo_total float;
+
+ SET calculo_total = valor1 + valor2;
+
+	RETURN calculo_total;
+
+END
