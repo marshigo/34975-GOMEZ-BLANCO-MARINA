@@ -1,0 +1,26 @@
+START TRANSACTION;
+
+	    
+
+	INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (3, 'Laura', 'Martinez', 'Av. La Plata 2500', 1148795214, 1, 1002);
+
+  INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (4, 'José', 'Perez', 'Rivadavía 926', 1166345801, 1, 1200);
+
+  INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (5, 'Raul', 'Montero', 'Bartolome Mitre 758', 11645789601, 1, 1002);
+
+ 
+
+ savepoint lote_1;
+
+  
+
+ INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (6, 'Mabel', 'Flores', 'Av Callao 1001', 1145621301, 1, 1198);
+
+ INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (7, 'Laura', 'Gimenez', 'Av Bustillo 7546', 1166624841, 1, 8400);
+
+     
+
+
+
+ COMMIT;
+
