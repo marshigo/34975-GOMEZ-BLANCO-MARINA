@@ -1,0 +1,69 @@
+SHOW GRANTS FOR 'usuario_1';
+
+-- Definir tres usuarios a través de DCL.
+    CREATE USER 'usuario_1' IDENTIFIED BY 'usuario_1';
+    CREATE USER 'usuario_2' IDENTIFIED BY 'usuario_2';
+    CREATE USER 'usuario_3' IDENTIFIED BY 'usuario_3';
+-- Establecer permisos de lectura sobre determinadas tablas (usuario_1).
+    GRANT SELECT ON coderhouse_project.departamento TO 'usuario_1';
+-- Establecer permisos de lectura/escritura sobre todas las tablas (usuario_2).
+    GRANT INSERT, SELECT ON coderhouse_project.* TO 'usuario_2';
+-- Establecer permiso de lectura/eliminación sobre todas las tablas (usuario_3).
+    GRANT SELECT, DELETE ON coderhouse_project.* TO 'usuario_3';
+-- Probar los permisos otorgados, mediante operaciones DML.
+    -- Conectarse con usuario_1
+        SELECT * FROM departamento;
+    -- Conectarse con usuario_2
+        SELECT * FROM apart;
+        SELECT * FROM cliente;
+        SELECT * FROM departamento;
+        SELECT * FROM estado;
+        SELECT * FROM pago;
+        SELECT * FROM pais;
+        SELECT * FROM reserva;
+        SELECT * FROM usuario;
+
+        INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (3, 'Laura', 'Martinez', 'Av. La Plata 2500', 1148795214, 1, 1002);
+        INSERT INTO departamento (departamento_id, departamento_descripcion, capacidad, precio_total, apart_id) VALUES (3, 'Cabaña 7', 8, 18000, 1);
+
+        -- Error
+        DELETE FROM departamento WHERE id = 3;
+    
+    -- Conectarse con usuario_3
+		SELECT * FROM apart;
+        SELECT * FROM cliente;
+        SELECT * FROM departamento;
+        SELECT * FROM estado;
+        SELECT * FROM pago;
+        SELECT * FROM pais;
+        SELECT * FROM reserva;
+        SELECT * FROM usuario;
+        
+        DELETE FROM departamento WHERE id = 3;
+        
+        -- Error
+	INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (3, 'Laura', 'Martinez', 'Av. La Plata 2500', 1148795214, 1, 1002);
+
+-- Eliminar (usuario_3) y configurar los permisos de éste a (usuario_2).
+    DROP USER usuario_3;
+
+    REVOKE ALL ON *.* FROM 'usuario_2';
+    SHOW GRANTS FOR 'usuario_2';
+    GRANT SELECT, DELETE ON coderhouse_project.* TO 'usuario_2';
+
+    DELETE FROM departamento WHERE id > 3;
+
+-- Integrar el uso de (TCL) al momento de realizar las operaciones DML anteriormente mencionadas.
+    -- Conectarse con usuario_2
+        START TRANSACTION;
+            -- DELETE FROM alumnos WHERE id = 3;
+             INSERT INTO cliente (cliente_id, nombre, apellido, direccion, telefono, pais_id, codigo_postal) VALUES (3, 'Laura', 'Martinez', 'Av. La Plata 2500', 1148795214, 1, 1002);
+
+            COMMIT;
+
+
+
+-- Eliminar usuarios
+    DROP USER IF EXISTS usuario_1;
+    DROP USER IF EXISTS usuario_2;
+    DROP USER IF EXISTS usuario_3;
