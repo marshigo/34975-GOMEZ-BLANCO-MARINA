@@ -1,50 +1,99 @@
 	USE coderhouse_project;
 
+
+
 	INSERT INTO reserva (reserva_id, cliente_id, fecha_checkin, fecha_checkout, precio, cantidad_personas, estado_id, departamento_id)
+
+
 
 	VALUES (3, 2, '2023-01-24','2023-01-30', 120.879, 6, 1, 1);
 
+
+
 	CREATE TABLE reservas_nuevas (
 
-	  id_nueva_reserva INT AUTO_INCREMENT PRIMARY KEY,
+
+
+	 id_nueva_reserva INT AUTO_INCREMENT PRIMARY KEY,
+
 	  
-	  reserva_id INT,
+
+	 reserva_id INT,
+
 	  
-	  fecha_checkin datetime, 
+
+	 fecha_checkin datetime, 
+
 	  
-	  fecha_checkout datetime, 
+
+	 fecha_checkout datetime, 
+
 	  
-	   precio INT,
-	   
-	  cantidad_personas INT,
+
+	  precio INT,
+
 	  
-	   estado_id INT,
-	   
+
+	 cantidad_personas INT,
+
+	  
+
+	  estado_id INT,
+
+	  
+
 	departamento_id INT,
+
 		
-	  create_date TIMESTAMP
+
+	 create_date TIMESTAMP
+
 	  
+
+
 
 	);
 
+
+
 	DELIMITER $$
+
+
 
 	CREATE TRIGGER actualizar_reserva
 
+
+
 	BEFORE UPDATE ON reserva
+
+
 
 	FOR EACH ROW
 
+
+
 	BEGIN
+
+
 
 		INSERT INTO reservas_nuevas (reserva_id, cliente_id, fecha_checkin, fecha_checkout, precio, cantidad_personas, estado_id, departamento_id, create_date)
 
-	  VALUES (
+
+
+	 VALUES (
+
+
 
 			NEW.reserva_id, NEW.cliente_id, NEW.fecha_checkin, NEW.fecha_checkout, NEW.precio, NEW.cantidad_personas, NEW.estado_id, NEW.departamento_id, current_timestamp()
 
-	  );
+
+
+	 );
+
+
 
 	END
+
+
 
 	$$
